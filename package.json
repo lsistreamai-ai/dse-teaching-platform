@@ -3,12 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "install:server": "cd server && npm install",
-    "install:client": "cd client && npm install",
-    "install:all": "npm run install:server && npm run install:client",
-    "server": "cd server && npm start",
-    "client": "cd client && npm run dev",
-    "build": "cd client && npm run build",
-    "start": "npm run server"
+    "dev": "cd server && npm start",
+    "build": "cd client && npm install && npm run build",
+    "start": "cd server && npm start"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "^5.1.7",
+    "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }

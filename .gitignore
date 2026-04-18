@@ -1,7 +1,9 @@
 node_modules/
-.client/
-server/uploads/
 *.db
 .env
-dist/
 .DS_Store
+server/node_modules/
+client/node_modules/
+api/node_modules/
+dist/
+server/uploads/
