@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { merge } from 'lucide-react'
+import { GitMerge } from 'lucide-react'
 
 export default function MergeTool({ user }) {
   const [suggestions, setSuggestions] = useState([])
