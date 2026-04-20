@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../api'
 import { GitMerge } from 'lucide-react'
 
 export default function MergeTool({ user }) {
@@ -18,12 +18,12 @@ export default function MergeTool({ user }) {
   }, [])
 
   const fetchSuggestions = async () => {
-    const res = await axios.get('/api/merge/suggestions')
+    const res = await api.get('/api/merge/suggestions')
     setSuggestions(res.data.suggestions)
   }
 
   const fetchProjects = async () => {
-    const res = await axios.get('/api/merge/projects')
+    const res = await api.get('/api/merge/projects')
     setProjects(res.data.projects)
   }
 
@@ -38,7 +38,7 @@ export default function MergeTool({ user }) {
 
   const handleCreate = async (e) => {
     e.preventDefault()
-    await axios.post('/api/merge/worksheets', {
+    await api.post('/api/merge/worksheets', {
       ...form,
       teacherIds: [user?.id]
     })

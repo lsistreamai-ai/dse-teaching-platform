@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import api from '../api'
 import { FileText, Presentation, ClipboardList, CheckCircle } from 'lucide-react'
 
 const AI_TOOLS = [
@@ -87,7 +87,7 @@ export default function AITools() {
           break
       }
       
-      const res = await axios.post(endpoint, data)
+      const res = await api.post(endpoint, data)
       setResult(res.data)
     } catch (err) {
       setResult({ error: err.response?.data?.error || 'Failed to generate' })

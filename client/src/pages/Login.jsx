@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import api from '../api'
 
 export default function Login({ setUser }) {
   const [email, setEmail] = useState('')
@@ -12,7 +12,7 @@ export default function Login({ setUser }) {
     setError('')
     
     try {
-      const res = await axios.post('/api/auth/login', { email, password })
+      const res = await api.post('/api/auth/login', { email, password })
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('user', JSON.stringify(res.data.user))
       setUser(res.data.user)

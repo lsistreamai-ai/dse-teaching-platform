@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../api'
 import { Search, Upload } from 'lucide-react'
 
 export default function Resources() {
@@ -22,7 +22,7 @@ export default function Resources() {
     if (filters.form_level) params.append('form_level', filters.form_level)
     if (filters.search) params.append('search', filters.search)
     
-    const res = await axios.get(`/api/resources?${params}`)
+    const res = await api.get(`/api/resources?${params}`)
     setResources(res.data.resources)
     setSubjects(res.data.subjects)
     setFormLevels(res.data.formLevels)
@@ -30,7 +30,7 @@ export default function Resources() {
 
   const handleUpload = async (e) => {
     e.preventDefault()
-    await axios.post('/api/resources', uploadForm)
+    await api.post('/api/resources', uploadForm)
     setShowUpload(false)
     setUploadForm({ title: '', description: '', subject: '', form_level: '', topic: '' })
     fetchResources()

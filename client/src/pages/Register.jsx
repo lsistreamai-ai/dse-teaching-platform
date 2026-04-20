@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import api from '../api'
 
 const SUBJECTS = [
   'Chinese Language', 'English Language', 'Mathematics',
@@ -24,7 +24,7 @@ export default function Register({ setUser }) {
     setError('')
     
     try {
-      const res = await axios.post('/api/auth/register', form)
+      const res = await api.post('/api/auth/register', form)
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('user', JSON.stringify(res.data.user))
       setUser(res.data.user)
