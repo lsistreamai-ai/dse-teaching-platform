@@ -3,8 +3,8 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
-const db = require('./db');
-const auth = require('./middleware/auth');
+const db = require('../db');
+const auth = require('../middleware/auth');
 
 const storage = multer.diskStorage({
   destination: './server/uploads/',

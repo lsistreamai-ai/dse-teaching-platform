@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
-const db = require('./db');
+const db = require('../db');
 
 // Register
 router.post('/register', (req, res) => {
@@ -19,7 +19,7 @@ router.post('/register', (req, res) => {
     if (err) {
       return res.status(400).json({ error: 'Email already exists' });
     }
-    const token = jwt.sign({ id, email, name, role }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id, email, name, role }, process.env.JWT_SECRET || 'default-secret-key');
     res.json({ token, user: { id, email, name, role, subjects, school } });
   });
 });
@@ -40,7 +40,7 @@ router.post('/login', (req, res) => {
 
     const token = jwt.sign(
       { id: user.id, email: user.email, name: user.name, role: user.role },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET || 'default-secret-key'
     );
     res.json({
       token,
@@ -57,7 +57,7 @@ router.post('/login', (req, res) => {
 });
 
 // Get current user
-router.get('/me', require('./middleware/auth'), (req, res) => {
+router.get('/me', require('../middleware/auth'), (req, res) => {
   db.get('SELECT id, email, name, role, subjects, school FROM users WHERE id = ?', [req.user.id], (err, user) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });

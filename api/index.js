@@ -20,4 +20,5 @@ app.use('/api/resources', resourceRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/merge', mergeRoutes);
 
+// Export for Vercel serverless functions
 module.exports = app;
