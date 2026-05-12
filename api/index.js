@@ -20,17 +20,25 @@ app.get('/api/health', (req, res) => {
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
-// Resources routes
-const resourceRoutes = require('./routes/resources');
-app.use('/api/resources', resourceRoutes);
+// AI routes (without multer)
+try {
+  const aiRoutes = require('./routes/ai');
+  app.use('/api/ai', aiRoutes);
+} catch (err) {
+  console.error('Failed to load AI routes:', err);
+}
 
-// AI routes
-const aiRoutes = require('./routes/ai');
-app.use('/api/ai', aiRoutes);
+// Merge routes (without multer)
+try {
+  const mergeRoutes = require('./routes/merge');
+  app.use('/api/merge', mergeRoutes);
+} catch (err) {
+  console.error('Failed to load merge routes:', err);
+}
 
-// Merge routes
-const mergeRoutes = require('./routes/merge');
-app.use('/api/merge', mergeRoutes);
+// Resources routes - disabled on Vercel due to multer/file system limitations
+// const resourceRoutes = require('./routes/resources');
+// app.use('/api/resources', resourceRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {
