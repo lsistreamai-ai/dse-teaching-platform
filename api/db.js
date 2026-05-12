@@ -1,7 +1,17 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 
-const dbPath = path.join(__dirname, 'dse_platform.db');
+// Use /tmp on Vercel (serverless), local directory otherwise
+const isVercel = process.env.VERCEL === '1';
+const dbDir = isVercel ? '/tmp' : __dirname;
+const dbPath = path.join(dbDir, 'dse_platform.db');
+
+// Ensure directory exists (mainly for local dev)
+if (!isVercel && !fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+
 const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
